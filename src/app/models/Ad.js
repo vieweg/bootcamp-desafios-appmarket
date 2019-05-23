@@ -19,11 +19,23 @@ const Ad = new mongoose.Schema({
     type: Number,
     required: true
   },
+  purchasedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Purchase',
+    required: false
+  },
   createdAt: {
     type: Date,
     required: true,
     default: Date.now
   }
+})
+
+Ad.remove(function (err, ad) {
+  if (err) return console.log(err)
+  Ad.findById(ad._id, function (err, ad) {
+    console.log(err, ad) // null
+  })
 })
 
 Ad.plugin(mongoosePaginate)
